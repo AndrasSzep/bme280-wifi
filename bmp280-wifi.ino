@@ -178,6 +178,8 @@ void loop(){
   Serial.print(pressure,2); // print with 2 decimal places
   Serial.print(" hPa. Temperature = ");
   Serial.print(temperature,1); // print with 1 decimal places
-  Serial.println( " degrees Celsius");
+  Serial.print( " ˚C");
+  Serial.print(altitude,1); // print with 1 decimal places
+  Serial.println( " m a.s.l");
   delay(5000);
 }
