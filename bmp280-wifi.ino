@@ -62,17 +62,16 @@ const char index_html[] PROGMEM = R"rawliteral(
   </style>
 </head>
 <body>
-  <h2>ESP8266 BMP280 Server</h2>
-  <h3>by Dr.András Szép</h3>
+  <h6>ESP8266+BMP280 ©Dr.András Szép</h6>
   <p>
     <i class="fas fa-thermometer-half" style="color:#059e8a;"></i> 
-    <span class="ds-labels">Temperature </span> 
+    <span class="ds-labels"> </span> 
     <span id="temperature">%TEMPERATURE%</span>
     <sup class="units"></sup>&deg;C
   </p>
   <p>
     <i class="fas fa-thermometer-half" style="color:#059e8a;"></i> 
-    <span class="ds-labels">Pressure </span>
+    <span class="ds-labels"> </span>
     <span id="pressure">%PRESSURE%</span>
     <sup class="units"></sup>mBar
   </p>
@@ -118,7 +117,7 @@ String processor(const String& var){
 void setup(){
   // Serial port for debugging purposes
   Serial.begin(115200);
-  Serial.println("\nTemperature and pressure monitor by Dr.András Szép ©2020\n");
+  Serial.println("\n=============\nTemperature and pressure monitor by Dr.András Szép ©2020\n");
   
 //  Wire.begin(); // initialise I2C protocol
   
@@ -150,10 +149,7 @@ void setup(){
   // Print ESP Local IP Address
   Serial.print("\nConnected IP:");
   Serial.println(WiFi.localIP());
-
-  
-  Serial.println("Sensor\tstatus\tHumidity (%)\tTemperature (ºC)");
-  
+ 
   // Route for root / web page
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send_P(200, "text/html", index_html, processor);
@@ -174,11 +170,11 @@ void loop(){
   pressure = bmp.readPressure() / 100.0F;
   altitude = bmp.readAltitude(SEALEVELPRESSURE_HPA);
 
-  Serial.print("%. Atmospheric pressure = ");
+  Serial.print("Atmospheric pressure = ");
   Serial.print(pressure,2); // print with 2 decimal places
-  Serial.print(" hPa. Temperature = ");
+  Serial.print(" hPa,  Temperature = ");
   Serial.print(temperature,1); // print with 1 decimal places
-  Serial.print( " ˚C");
+  Serial.print( " ˚C,   Altitude = ");
   Serial.print(altitude,1); // print with 1 decimal places
   Serial.println( " m a.s.l");
   delay(5000);
